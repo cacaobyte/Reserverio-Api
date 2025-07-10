@@ -1,0 +1,95 @@
+﻿@{
+    ViewData["Title"] = "Propósito";
+}
+
+@Html.Raw(@"
+<style>
+    .motivacion-wrapper {
+        min-height: calc(100vh - 120px); /* ajustado al footer/navbar */
+        background: linear-gradient(to bottom right, #e3f2fd, #fce4ec);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+        animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .motivacion-card {
+        background-color: white;
+        padding: 50px;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        max-width: 850px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .motivacion-card h1 {
+        font-size: 2.8rem;
+        color: #1976d2;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+
+    .motivacion-card p {
+        font-size: 1.2rem;
+        color: #333;
+        line-height: 1.7;
+    }
+
+    blockquote {
+        font-size: 1.3rem;
+        font-style: italic;
+        margin-top: 40px;
+        color: #555;
+        position: relative;
+    }
+
+    blockquote::before {
+        content: '“';
+        font-size: 3rem;
+        color: #ccc;
+        position: absolute;
+        top: -30px;
+        left: -20px;
+    }
+
+    blockquote footer {
+        font-size: 1rem;
+        margin-top: 10px;
+        color: #888;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-continuar {
+        margin-top: 30px;
+        font-size: 1rem;
+        padding: 10px 30px;
+        border-radius: 8px;
+    }
+</style>
+")
+
+<div class="motivacion-wrapper">
+    <div class="motivacion-card">
+        <h1>🌟 ¡Tú puedes lograrlo!</h1>
+        <p>
+            Este proyecto no es solo código... es tu sueño tomando forma.
+            Recuerda por qué comenzaste: ayudar a negocios, construir soluciones reales,
+            y demostrarte que eres capaz de crear algo grande desde cero.
+        </p>
+        <hr />
+        <blockquote class="blockquote">
+            <p>Todo parece imposible hasta que se hace.</p>
+            <footer class="blockquote-footer">Nelson Mandela</footer>
+        </blockquote>
+
+        <a href="/" class="btn btn-primary btn-continuar">
+            Seguir construyendo
+        </a>
+    </div>
+</div>
