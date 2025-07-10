@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommerceCore.ML", "CommerceCore.ML\CommerceCore.ML.csproj", "{634EB61B-FA83-48A6-BA2D-9C84624CBA99}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReserverioCore.ML", "CommerceCore.ML\ReserverioCore.ML.csproj", "{634EB61B-FA83-48A6-BA2D-9C84624CBA99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommerceCore.DAL", "CommerceCore.DAL\CommerceCore.DAL.csproj", "{B37A6B70-D45C-49F3-9638-3B74A685B66C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reserverio.DAL", "CommerceCore.DAL\Reserverio.DAL.csproj", "{B37A6B70-D45C-49F3-9638-3B74A685B66C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommerceCore.BL", "CommerceCore.BL\CommerceCore.BL.csproj", "{7F393BED-69A7-480C-803C-2597131A7233}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reserverio.BL", "CommerceCore.BL\Reserverio.BL.csproj", "{7F393BED-69A7-480C-803C-2597131A7233}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommerceCore.Api", "CommerceCore.Api\CommerceCore.Api.csproj", "{448C4332-6ED6-49F2-B504-35AB350AC50F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reserverio.Api", "CommerceCore.Api\Reserverio.Api.csproj", "{448C4332-6ED6-49F2-B504-35AB350AC50F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC", "CC\CC.csproj", "{3DAEF3E9-0201-4AF6-92EE-65574EE53F17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommerceCore", "CommerceCore\CommerceCore.csproj", "{813355F6-5CF5-4BC3-9A0B-40452CA10F27}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReserverioCore", "CommerceCore\ReserverioCore.csproj", "{813355F6-5CF5-4BC3-9A0B-40452CA10F27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommerceCore.EL", "CommerceCore.EL\CommerceCore.EL.csproj", "{F7E00BF2-85FB-45BB-AF34-E741B1E5E240}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reserverio.EL", "CommerceCore.EL\Reserverio.EL.csproj", "{F7E00BF2-85FB-45BB-AF34-E741B1E5E240}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,5 +54,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E9BD92A7-486C-4532-B5BB-7E153F99B43D}
 	EndGlobalSection
 EndGlobal

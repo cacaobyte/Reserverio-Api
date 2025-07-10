@@ -1,6 +1,87 @@
 ﻿@{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Política de Privacidad";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+@Html.Raw(@"
+<style>
+    .privacy-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        min-height: 100vh;
+        background-color: #f4f7f9;
+        padding: 60px 20px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .privacy-card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        max-width: 900px;
+        padding: 40px;
+        width: 100%;
+        color: #333;
+        animation: fadeIn 0.6s ease-in-out;
+    }
+
+    .privacy-card h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: #2c3e50;
+        text-align: center;
+    }
+
+    .privacy-card p {
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: #555;
+        margin-bottom: 20px;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+")
+
+<div class="privacy-container">
+    <div class="privacy-card">
+        <h1>Política de Privacidad</h1>
+
+        <p>
+            En <strong>Reserverio</strong>, valoramos la privacidad de nuestros usuarios y de los negocios registrados en nuestra plataforma. Esta política explica cómo recopilamos, usamos y protegemos tu información.
+        </p>
+
+        <p>
+            <strong>1. Información que recopilamos:</strong><br />
+            Solo recopilamos la información necesaria para brindar nuestros servicios, como nombre, correo electrónico, ubicación del negocio y horarios disponibles.
+        </p>
+
+        <p>
+            <strong>2. Uso de la información:</strong><br />
+            Utilizamos los datos para gestionar reservas, enviar notificaciones y mostrar información de los locales a los usuarios interesados.
+        </p>
+
+        <p>
+            <strong>3. Protección de los datos:</strong><br />
+            Toda la información está protegida mediante cifrado y buenas prácticas de seguridad. No compartimos ni vendemos datos personales a terceros.
+        </p>
+
+        <p>
+            <strong>4. Derechos del usuario:</strong><br />
+            Puedes solicitar la eliminación, corrección o revisión de tus datos en cualquier momento desde tu cuenta o escribiéndonos directamente.
+        </p>
+
+        <p>
+            <strong>5. Cambios a esta política:</strong><br />
+            Nos reservamos el derecho de actualizar esta política. Las modificaciones serán notificadas con antelación en nuestra plataforma.
+        </p>
+
+        <p>
+            Si tienes preguntas sobre nuestra política de privacidad, contáctanos a través de soporte@reserverio.com.
+        </p>
+    </div>
+</div>

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using CommerceCore.DAL.Commerce.Models.SoftByteCommerce;
 using Microsoft.EntityFrameworkCore;
+using ReserverioCore.ML.Reserverio;
 
-namespace CommerceCore.DAL.Commerce.Models;
+namespace Reserverio.DAL.Commerce.Models;
 
 public partial class AppDbContext : DbContext
 {
@@ -16,410 +16,521 @@ public partial class AppDbContext : DbContext
     {
     }
 
-    public virtual DbSet<Articulo> Articulos { get; set; }
+    public virtual DbSet<Country> Countries { get; set; }
 
-    public virtual DbSet<Bodega> Bodegas { get; set; }
+    public virtual DbSet<CouponClassification> CouponClassifications { get; set; }
 
-    public virtual DbSet<ExistenciaBodega> ExistenciaBodegas { get; set; }
+    public virtual DbSet<Module> Modules { get; set; }
 
-    public virtual DbSet<ExistenciaLote> ExistenciaLotes { get; set; }
+    public virtual DbSet<Operation> Operations { get; set; }
 
-    public virtual DbSet<Usuario> Usuarios { get; set; }
+    public virtual DbSet<Organization> Organizations { get; set; }
 
+    public virtual DbSet<PublicUser> PublicUsers { get; set; }
+
+    public virtual DbSet<Reservation> Reservations { get; set; }
+
+    public virtual DbSet<ReservationDetail> ReservationDetails { get; set; }
+
+    public virtual DbSet<ReservationLog> ReservationLogs { get; set; }
+
+    public virtual DbSet<ReservationService> ReservationServices { get; set; }
+
+    public virtual DbSet<Role> Roles { get; set; }
+
+    public virtual DbSet<RoleOperation> RoleOperations { get; set; }
+
+    public virtual DbSet<ServiceImage> ServiceImages { get; set; }
+
+    public virtual DbSet<Tenant> Tenants { get; set; }
+
+    public virtual DbSet<TenantBilling> TenantBillings { get; set; }
+
+    public virtual DbSet<TenantBranding> TenantBrandings { get; set; }
+
+    public virtual DbSet<TenantClassification> TenantClassifications { get; set; }
+
+    public virtual DbSet<TenantClassificationMap> TenantClassificationMaps { get; set; }
+
+    public virtual DbSet<TenantCoupon> TenantCoupons { get; set; }
+
+    public virtual DbSet<TenantCouponService> TenantCouponServices { get; set; }
+
+    public virtual DbSet<TenantCouponUsageDetail> TenantCouponUsageDetails { get; set; }
+
+    public virtual DbSet<TenantCouponUsageLog> TenantCouponUsageLogs { get; set; }
+
+    public virtual DbSet<TenantFeature> TenantFeatures { get; set; }
+
+    public virtual DbSet<TenantLocaleSetting> TenantLocaleSettings { get; set; }
+
+    public virtual DbSet<TenantNotification> TenantNotifications { get; set; }
+
+    public virtual DbSet<TenantSchedule> TenantSchedules { get; set; }
+
+    public virtual DbSet<TenantSetting> TenantSettings { get; set; }
+
+    public virtual DbSet<TenantUserBlockList> TenantUserBlockLists { get; set; }
+
+    public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<UserFavorite> UserFavorites { get; set; }
+
+    public virtual DbSet<UserLoginLog> UserLoginLogs { get; set; }
+
+    public virtual DbSet<UserRating> UserRatings { get; set; }
+
+    public virtual DbSet<UserRatingPhoto> UserRatingPhotos { get; set; }
+
+    public virtual DbSet<UsersRole> UsersRoles { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseNpgsql("Host=ep-noisy-sea-ae3p0izv-pooler.c-2.us-east-2.aws.neon.tech;Port=5432;Username=neondb_owner;Password=npg_EOwKcdLexF68;Database=neondb;SSL Mode=Require;Trust Server Certificate=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder
-            .HasPostgresEnum("auth", "aal_level", new[] { "aal1", "aal2", "aal3" })
-            .HasPostgresEnum("auth", "code_challenge_method", new[] { "s256", "plain" })
-            .HasPostgresEnum("auth", "factor_status", new[] { "unverified", "verified" })
-            .HasPostgresEnum("auth", "factor_type", new[] { "totp", "webauthn", "phone" })
-            .HasPostgresEnum("auth", "one_time_token_type", new[] { "confirmation_token", "reauthentication_token", "recovery_token", "email_change_token_new", "email_change_token_current", "phone_change_token" })
-            .HasPostgresEnum("pgsodium", "key_status", new[] { "default", "valid", "invalid", "expired" })
-            .HasPostgresEnum("pgsodium", "key_type", new[] { "aead-ietf", "aead-det", "hmacsha512", "hmacsha256", "auth", "shorthash", "generichash", "kdf", "secretbox", "secretstream", "stream_xchacha20" })
-            .HasPostgresEnum("realtime", "action", new[] { "INSERT", "UPDATE", "DELETE", "TRUNCATE", "ERROR" })
-            .HasPostgresEnum("realtime", "equality_op", new[] { "eq", "neq", "lt", "lte", "gt", "gte", "in" })
-            .HasPostgresExtension("extensions", "pg_stat_statements")
-            .HasPostgresExtension("extensions", "pgcrypto")
-            .HasPostgresExtension("extensions", "pgjwt")
-            .HasPostgresExtension("extensions", "uuid-ossp")
-            .HasPostgresExtension("graphql", "pg_graphql")
-            .HasPostgresExtension("pg_catalog", "pg_cron")
-            .HasPostgresExtension("pgsodium", "pgsodium")
-            .HasPostgresExtension("vault", "supabase_vault");
-
-        modelBuilder.Entity<Articulo>(entity =>
+        modelBuilder.Entity<Country>(entity =>
         {
-            entity.HasKey(e => e.Articulo1).HasName("articulo_pkey");
+            entity.HasKey(e => e.Id).HasName("Countries_pkey");
 
-            entity.ToTable("articulo", "softbytecommerce");
-
-            entity.Property(e => e.Articulo1)
-                .HasMaxLength(50)
-                .HasColumnName("articulo");
-            entity.Property(e => e.Activo)
-                .HasDefaultValue(true)
-                .HasColumnName("activo");
-            entity.Property(e => e.Categoria)
-                .HasMaxLength(150)
-                .HasColumnName("categoria");
-            entity.Property(e => e.Createdby)
-                .HasMaxLength(50)
-                .HasColumnName("createdby");
-            entity.Property(e => e.Descripcion)
-                .HasMaxLength(255)
-                .HasColumnName("descripcion");
-            entity.Property(e => e.Fechaactualizacion)
-                .HasDefaultValueSql("now()")
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("fechaactualizacion");
-            entity.Property(e => e.Fechacreacion)
-                .HasDefaultValueSql("now()")
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("fechacreacion");
-            entity.Property(e => e.PesoBruto)
-                .HasPrecision(10, 2)
-                .HasColumnName("peso_bruto");
-            entity.Property(e => e.PesoNeto)
-                .HasPrecision(10, 2)
-                .HasColumnName("peso_neto");
-            entity.Property(e => e.Precio)
-                .HasPrecision(10, 2)
-                .HasColumnName("precio");
-            entity.Property(e => e.SubCategoria)
-                .HasComment("Se usa para guardar las subcategorías de los productos")
-                .HasColumnType("character varying");
-            entity.Property(e => e.Updatedby)
-                .HasMaxLength(50)
-                .HasColumnName("updatedby");
-            entity.Property(e => e.Volumen)
-                .HasPrecision(10, 2)
-                .HasColumnName("volumen");
+            entity.Property(e => e.Continent).HasMaxLength(50);
+            entity.Property(e => e.Currency).HasMaxLength(50);
+            entity.Property(e => e.CurrencyCode).HasMaxLength(10);
+            entity.Property(e => e.CurrencySymbol).HasMaxLength(10);
+            entity.Property(e => e.FlagUrl).HasMaxLength(255);
+            entity.Property(e => e.IsoCode).HasMaxLength(20);
+            entity.Property(e => e.Name).HasMaxLength(255);
+            entity.Property(e => e.PhoneCode).HasMaxLength(10);
+            entity.Property(e => e.Timezone).HasMaxLength(255);
         });
 
-        modelBuilder.Entity<Bodega>(entity =>
+        modelBuilder.Entity<CouponClassification>(entity =>
         {
-            entity.HasKey(e => e.Bodega1).HasName("bodegas_pkey");
+            entity.HasKey(e => e.Id).HasName("CouponClassifications_pkey");
 
-            entity.ToTable("bodegas", "softbytecommerce");
-
-            entity.Property(e => e.Bodega1)
-                .HasMaxLength(50)
-                .HasColumnName("bodega");
-            entity.Property(e => e.Activo)
-                .HasDefaultValue(true)
-                .HasColumnName("activo");
-            entity.Property(e => e.Bodegacentral)
-                .HasDefaultValue(false)
-                .HasColumnName("bodegacentral");
-            entity.Property(e => e.Bodegasecundaria)
-                .HasDefaultValue(false)
-                .HasColumnName("bodegasecundaria");
-            entity.Property(e => e.Correo)
-                .HasMaxLength(255)
-                .HasColumnName("correo");
-            entity.Property(e => e.Createdby)
-                .HasMaxLength(50)
-                .HasColumnName("createdby");
-            entity.Property(e => e.Departamento)
-                .HasMaxLength(100)
-                .HasColumnName("departamento");
-            entity.Property(e => e.Descripcion)
-                .HasMaxLength(255)
-                .HasColumnName("descripcion");
-            entity.Property(e => e.Direccion).HasColumnName("direccion");
-            entity.Property(e => e.Fechaactualizacion)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("fechaactualizacion");
-            entity.Property(e => e.Fechacreacion)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("fechacreacion");
-            entity.Property(e => e.Municipio)
-                .HasMaxLength(100)
-                .HasColumnName("municipio");
-            entity.Property(e => e.Region)
-                .HasMaxLength(100)
-                .HasColumnName("region");
-            entity.Property(e => e.Telefono)
-                .HasMaxLength(15)
-                .HasColumnName("telefono");
-            entity.Property(e => e.Updatedby)
-                .HasMaxLength(50)
-                .HasColumnName("updatedby");
+            entity.Property(e => e.ColorCode).HasMaxLength(255);
+            entity.Property(e => e.IconUrl).HasMaxLength(255);
+            entity.Property(e => e.Name).HasMaxLength(255);
+            entity.Property(e => e.Slug).HasMaxLength(255);
         });
 
-        modelBuilder.Entity<ExistenciaBodega>(entity =>
+        modelBuilder.Entity<Module>(entity =>
         {
-            entity.HasKey(e => new { e.Bodega, e.Articulo }).HasName("existencia_bodega_pkey");
+            entity.HasKey(e => e.Id).HasName("Module_pkey");
 
-            entity.ToTable("existencia_bodega", "softbytecommerce");
+            entity.ToTable("Module");
 
-            entity.Property(e => e.Bodega)
-                .HasMaxLength(50)
-                .HasColumnName("bodega");
-            entity.Property(e => e.Articulo)
-                .HasMaxLength(50)
-                .HasColumnName("articulo");
-            entity.Property(e => e.BloqueaTrans)
-                .HasDefaultValue(false)
-                .HasColumnName("bloquea_trans");
-            entity.Property(e => e.CantDisponible)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("cant_disponible");
-            entity.Property(e => e.CantNoAprobada)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("cant_no_aprobada");
-            entity.Property(e => e.CantPedida)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("cant_pedida");
-            entity.Property(e => e.CantProduccion)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("cant_produccion");
-            entity.Property(e => e.CantRemitida)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("cant_remitida");
-            entity.Property(e => e.CantReservada)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("cant_reservada");
-            entity.Property(e => e.CantTransito)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("cant_transito");
-            entity.Property(e => e.CantVencida)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("cant_vencida");
-            entity.Property(e => e.Congelado)
-                .HasDefaultValue(false)
-                .HasColumnName("congelado");
-            entity.Property(e => e.CostoPromComparativoDolar)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("costo_prom_comparativo_dolar");
-            entity.Property(e => e.CostoPromComparativoLoc)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("costo_prom_comparativo_loc");
-            entity.Property(e => e.CostoUntEstandarDol)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("costo_unt_estandar_dol");
-            entity.Property(e => e.CostoUntEstandarLoc)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("costo_unt_estandar_loc");
-            entity.Property(e => e.CostoUntPromedioDol)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("costo_unt_promedio_dol");
-            entity.Property(e => e.CostoUntPromedioLoc)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("costo_unt_promedio_loc");
-            entity.Property(e => e.Createdby)
-                .HasMaxLength(50)
-                .HasColumnName("createdby");
-            entity.Property(e => e.ExistenciaMaxima)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("existencia_maxima");
-            entity.Property(e => e.ExistenciaMinima)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("existencia_minima");
-            entity.Property(e => e.FechaCong)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("fecha_cong");
-            entity.Property(e => e.FechaDescong)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("fecha_descong");
-            entity.Property(e => e.Fechaactualizacion)
-                .HasDefaultValueSql("now()")
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("fechaactualizacion");
-            entity.Property(e => e.Fechacreacion)
-                .HasDefaultValueSql("now()")
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("fechacreacion");
-            entity.Property(e => e.PuntoDeReorden)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("punto_de_reorden");
-            entity.Property(e => e.Updatedby)
-                .HasMaxLength(50)
-                .HasColumnName("updatedby");
-
-            entity.HasOne(d => d.ArticuloNavigation).WithMany(p => p.ExistenciaBodegas)
-                .HasForeignKey(d => d.Articulo)
-                .HasConstraintName("fk_existencia_bodega_articulo");
-
-            entity.HasOne(d => d.BodegaNavigation).WithMany(p => p.ExistenciaBodegas)
-                .HasForeignKey(d => d.Bodega)
-                .HasConstraintName("fk_existencia_bodega_bodega");
+            entity.Property(e => e.CreateBy).HasMaxLength(255);
+            entity.Property(e => e.Description).HasMaxLength(255);
+            entity.Property(e => e.Icon).HasMaxLength(255);
+            entity.Property(e => e.Name).HasMaxLength(255);
+            entity.Property(e => e.Route).HasMaxLength(255);
         });
 
-        modelBuilder.Entity<ExistenciaLote>(entity =>
+        modelBuilder.Entity<Operation>(entity =>
         {
-            entity.HasKey(e => new { e.Bodega, e.Articulo, e.Lote }).HasName("existencia_lote_pkey");
+            entity.HasKey(e => e.Id).HasName("Operations_pkey");
 
-            entity.ToTable("existencia_lote", "softbytecommerce");
-
-            entity.Property(e => e.Bodega)
-                .HasMaxLength(50)
-                .HasColumnName("bodega");
-            entity.Property(e => e.Articulo)
-                .HasMaxLength(50)
-                .HasColumnName("articulo");
-            entity.Property(e => e.Lote)
-                .HasMaxLength(50)
-                .HasColumnName("lote");
-            entity.Property(e => e.CantDisponible)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("cant_disponible");
-            entity.Property(e => e.CantNoAprobada)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("cant_no_aprobada");
-            entity.Property(e => e.CantRemitida)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("cant_remitida");
-            entity.Property(e => e.CantReservada)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("cant_reservada");
-            entity.Property(e => e.CantVencida)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("cant_vencida");
-            entity.Property(e => e.CostoUntEstandarDol)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("costo_unt_estandar_dol");
-            entity.Property(e => e.CostoUntEstandarLoc)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("costo_unt_estandar_loc");
-            entity.Property(e => e.CostoUntPromedioDol)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("costo_unt_promedio_dol");
-            entity.Property(e => e.CostoUntPromedioLoc)
-                .HasPrecision(10, 2)
-                .HasDefaultValueSql("0")
-                .HasColumnName("costo_unt_promedio_loc");
-            entity.Property(e => e.Createdby)
-                .HasMaxLength(50)
-                .HasColumnName("createdby");
-            entity.Property(e => e.Fechaactualizacion)
-                .HasDefaultValueSql("now()")
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("fechaactualizacion");
-            entity.Property(e => e.Fechacreacion)
-                .HasDefaultValueSql("now()")
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("fechacreacion");
-            entity.Property(e => e.Localizacion)
-                .HasMaxLength(100)
-                .HasColumnName("localizacion");
-            entity.Property(e => e.Updatedby)
-                .HasMaxLength(50)
-                .HasColumnName("updatedby");
+            entity.Property(e => e.CreateBy).HasMaxLength(255);
+            entity.Property(e => e.Description).HasMaxLength(255);
+            entity.Property(e => e.IdModulo).ValueGeneratedOnAdd();
+            entity.Property(e => e.Name).HasMaxLength(255);
+            entity.Property(e => e.Type).HasMaxLength(255);
         });
 
-        modelBuilder.Entity<Usuario>(entity =>
+        modelBuilder.Entity<Organization>(entity =>
         {
-            entity.HasKey(e => e.Usuario1).HasName("usuario_pkey");
+            entity.HasKey(e => e.Id).HasName("Organizations_pkey");
 
-            entity.ToTable("usuario", "softbytecommerce");
+            entity.Property(e => e.CountryId).ValueGeneratedOnAdd();
+            entity.Property(e => e.Email).HasMaxLength(255);
+            entity.Property(e => e.LegalName).HasMaxLength(255);
+            entity.Property(e => e.LogoUrl).HasMaxLength(255);
+            entity.Property(e => e.Name).HasMaxLength(255);
+            entity.Property(e => e.Phone).HasMaxLength(25);
+            entity.Property(e => e.Website).HasMaxLength(255);
+        });
 
-            entity.HasIndex(e => e.CorreoElectronico, "usuario_correo_electronico_key").IsUnique();
+        modelBuilder.Entity<PublicUser>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PublicUsers_pkey");
 
-            entity.Property(e => e.Usuario1)
-                .HasMaxLength(50)
-                .HasColumnName("usuario");
-            entity.Property(e => e.Activo)
-                .HasDefaultValue(true)
-                .HasColumnName("activo");
-            entity.Property(e => e.Celular)
-                .HasMaxLength(15)
-                .HasColumnName("celular");
-            entity.Property(e => e.Clave)
+            entity.Property(e => e.AvatarUrl).HasMaxLength(255);
+            entity.Property(e => e.Email).HasMaxLength(255);
+            entity.Property(e => e.FirstName).HasMaxLength(255);
+            entity.Property(e => e.LastName).HasMaxLength(255);
+            entity.Property(e => e.PasswordHash).HasMaxLength(255);
+            entity.Property(e => e.PreferredLanguage).HasMaxLength(10);
+            entity.Property(e => e.PreferredTimezone).HasMaxLength(100);
+            entity.Property(e => e.UserName).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<Reservation>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Reservations_pkey");
+
+            entity.Property(e => e.CreateBy).HasMaxLength(255);
+            entity.Property(e => e.CreatedAt).HasMaxLength(255);
+            entity.Property(e => e.Notes).HasMaxLength(255);
+            entity.Property(e => e.PublicUserId).ValueGeneratedOnAdd();
+            entity.Property(e => e.Source).HasMaxLength(255);
+            entity.Property(e => e.Status).HasMaxLength(255);
+            entity.Property(e => e.TenantId).ValueGeneratedOnAdd();
+            entity.Property(e => e.UpdateBy).HasMaxLength(255);
+            entity.Property(e => e.UpdatedAt).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<ReservationDetail>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("ReservationDetails_pkey");
+
+            entity.Property(e => e.ReservationId).ValueGeneratedOnAdd();
+            entity.Property(e => e.ServiceId).ValueGeneratedOnAdd();
+        });
+
+        modelBuilder.Entity<ReservationLog>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("ReservationLogs_pkey");
+
+            entity.Property(e => e.Action).HasMaxLength(255);
+            entity.Property(e => e.PerformedBy).HasMaxLength(255);
+            entity.Property(e => e.ReservationId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("ReservationId ");
+        });
+
+        modelBuilder.Entity<ReservationService>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("ReservationServices_pkey");
+
+            entity.Property(e => e.CreateBy).HasMaxLength(255);
+            entity.Property(e => e.Description).HasMaxLength(255);
+            entity.Property(e => e.Duration).HasMaxLength(255);
+            entity.Property(e => e.Name).HasMaxLength(255);
+            entity.Property(e => e.Price).HasMaxLength(255);
+            entity.Property(e => e.TenantId).ValueGeneratedOnAdd();
+            entity.Property(e => e.UpdateBy).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<Role>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Role_pkey");
+
+            entity.ToTable("Role");
+
+            entity.Property(e => e.CreateBy).HasMaxLength(255);
+            entity.Property(e => e.Description).HasMaxLength(255);
+            entity.Property(e => e.Name).HasMaxLength(255);
+            entity.Property(e => e.UpdateBy).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<RoleOperation>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Role_Operations_pkey");
+
+            entity.ToTable("Role_Operations");
+
+            entity.Property(e => e.CreateBy).HasMaxLength(255);
+            entity.Property(e => e.IdOperacion).ValueGeneratedOnAdd();
+            entity.Property(e => e.IdRol).ValueGeneratedOnAdd();
+        });
+
+        modelBuilder.Entity<ServiceImage>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("ServiceImages_pkey");
+
+            entity.Property(e => e.AltText).HasMaxLength(255);
+            entity.Property(e => e.CreateBy).HasMaxLength(255);
+            entity.Property(e => e.ImageUrl).HasMaxLength(255);
+            entity.Property(e => e.ServiceId).ValueGeneratedOnAdd();
+            entity.Property(e => e.TenantId).ValueGeneratedOnAdd();
+            entity.Property(e => e.UpdateBy).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<Tenant>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Tenant_pkey");
+
+            entity.ToTable("Tenant");
+
+            entity.Property(e => e.AddressLine).HasMaxLength(255);
+            entity.Property(e => e.BrandColor).HasMaxLength(20);
+            entity.Property(e => e.City).HasMaxLength(255);
+            entity.Property(e => e.ContactEmail).HasMaxLength(255);
+            entity.Property(e => e.ContactPhone).HasMaxLength(25);
+            entity.Property(e => e.Country).HasMaxLength(255);
+            entity.Property(e => e.CountryId).ValueGeneratedOnAdd();
+            entity.Property(e => e.CreatedBy).HasMaxLength(255);
+            entity.Property(e => e.CustomUrl).HasMaxLength(255);
+            entity.Property(e => e.IdSetting).ValueGeneratedOnAdd();
+            entity.Property(e => e.Industry).HasMaxLength(255);
+            entity.Property(e => e.Latitude).HasPrecision(9, 6);
+            entity.Property(e => e.Longitude).HasPrecision(9, 6);
+            entity.Property(e => e.Name).HasMaxLength(255);
+            entity.Property(e => e.ParentTenantId).ValueGeneratedOnAdd();
+            entity.Property(e => e.Plan).HasMaxLength(100);
+            entity.Property(e => e.PostalCode).HasMaxLength(20);
+            entity.Property(e => e.StateOrRegion).HasMaxLength(255);
+            entity.Property(e => e.Timezone).HasMaxLength(100);
+            entity.Property(e => e.UpdatedBy).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<TenantBilling>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Tenant_Billing_pkey");
+
+            entity.ToTable("Tenant_Billing");
+
+            entity.Property(e => e.BillingPlan).HasMaxLength(255);
+            entity.Property(e => e.CreateBy).HasMaxLength(255);
+            entity.Property(e => e.PaymentStatus).HasMaxLength(255);
+            entity.Property(e => e.TenantId).ValueGeneratedOnAdd();
+            entity.Property(e => e.UpdateBy).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<TenantBranding>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Tenant_Branding_pkey");
+
+            entity.ToTable("Tenant_Branding");
+
+            entity.Property(e => e.CustomCss).HasColumnName("CustomCSS");
+            entity.Property(e => e.Font).HasMaxLength(100);
+            entity.Property(e => e.LogoUrl).HasMaxLength(255);
+            entity.Property(e => e.PrimaryColor).HasMaxLength(20);
+            entity.Property(e => e.SecondaryColor).HasMaxLength(20);
+            entity.Property(e => e.TenantId).ValueGeneratedOnAdd();
+        });
+
+        modelBuilder.Entity<TenantClassification>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("TenantClassifications_pkey");
+
+            entity.Property(e => e.ColorCode).HasMaxLength(255);
+            entity.Property(e => e.IconUrl).HasMaxLength(255);
+            entity.Property(e => e.Name).HasMaxLength(255);
+            entity.Property(e => e.Slug).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<TenantClassificationMap>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("TenantClassificationMap_pkey");
+
+            entity.ToTable("TenantClassificationMap");
+
+            entity.Property(e => e.ClassId).ValueGeneratedOnAdd();
+            entity.Property(e => e.TenantId).ValueGeneratedOnAdd();
+        });
+
+        modelBuilder.Entity<TenantCoupon>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("TenantCoupons_pkey");
+
+            entity.Property(e => e.ClassificationId).ValueGeneratedOnAdd();
+            entity.Property(e => e.Code).HasMaxLength(255);
+            entity.Property(e => e.DiscountType).HasMaxLength(255);
+            entity.Property(e => e.TenantId).ValueGeneratedOnAdd();
+        });
+
+        modelBuilder.Entity<TenantCouponService>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("TenantCouponServices_pkey");
+
+            entity.Property(e => e.CouponId).ValueGeneratedOnAdd();
+            entity.Property(e => e.ServiceId).ValueGeneratedOnAdd();
+        });
+
+        modelBuilder.Entity<TenantCouponUsageDetail>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("TenantCouponUsageDetails_pkey");
+
+            entity.Property(e => e.ServiceId).ValueGeneratedOnAdd();
+            entity.Property(e => e.UsageLogId).ValueGeneratedOnAdd();
+        });
+
+        modelBuilder.Entity<TenantCouponUsageLog>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("TenantCouponUsageLogs_pkey");
+
+            entity.Property(e => e.CouponId).ValueGeneratedOnAdd();
+            entity.Property(e => e.PublicUserId).ValueGeneratedOnAdd();
+            entity.Property(e => e.ReservationId).ValueGeneratedOnAdd();
+            entity.Property(e => e.TenantId).ValueGeneratedOnAdd();
+        });
+
+        modelBuilder.Entity<TenantFeature>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Tenant_Features_pkey");
+
+            entity.ToTable("Tenant_Features");
+
+            entity.Property(e => e.FeatureCode).HasMaxLength(255);
+            entity.Property(e => e.TenantId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("TenantId ");
+        });
+
+        modelBuilder.Entity<TenantLocaleSetting>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Tenant_LocaleSettings_pkey");
+
+            entity.ToTable("Tenant_LocaleSettings");
+
+            entity.Property(e => e.CurrencyCode).HasMaxLength(20);
+            entity.Property(e => e.DateFormat).HasMaxLength(255);
+            entity.Property(e => e.LanguageCode).HasMaxLength(20);
+            entity.Property(e => e.TenantId).ValueGeneratedOnAdd();
+            entity.Property(e => e.TimeFormat).HasMaxLength(50);
+            entity.Property(e => e.Timezone).HasMaxLength(100);
+        });
+
+        modelBuilder.Entity<TenantNotification>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Tenant_Notifications_pkey");
+
+            entity.ToTable("Tenant_Notifications");
+
+            entity.Property(e => e.Channel).HasMaxLength(255);
+            entity.Property(e => e.CreateBy).HasMaxLength(255);
+            entity.Property(e => e.NotificationType).HasMaxLength(255);
+            entity.Property(e => e.TenantId).ValueGeneratedOnAdd();
+            entity.Property(e => e.Transmitter)
                 .HasMaxLength(255)
-                .HasColumnName("clave");
-            entity.Property(e => e.CorreoElectronico)
+                .HasColumnName("transmitter");
+            entity.Property(e => e.UpdateBy).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<TenantSchedule>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Tenant_Schedule_pkey");
+
+            entity.ToTable("Tenant_Schedule");
+
+            entity.Property(e => e.CreateBy).HasMaxLength(255);
+            entity.Property(e => e.DayName).HasMaxLength(255);
+            entity.Property(e => e.IdSetting).ValueGeneratedOnAdd();
+            entity.Property(e => e.ScheduleType).HasMaxLength(255);
+            entity.Property(e => e.TenantId).ValueGeneratedOnAdd();
+            entity.Property(e => e.UpdateBy).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<TenantSetting>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Tenant_Settings_pkey");
+
+            entity.ToTable("Tenant_Settings", tb => tb.HasComment("Tabla de configuraciones del Tenant del negocio para poder aplicar asi las reglas del negocio del sistema y asi mismo a los usuarios los cuales han interactuado con este tenant"));
+
+            entity.Property(e => e.AllowDoubleBooking).HasComment("Sirve para validar si se permite una reservación doble por día");
+            entity.Property(e => e.AllowMultipleServicesPerBooking).HasComment("Si una reserva puede tener más de un servicio seleccionado");
+            entity.Property(e => e.AutoApproveReservations).HasComment("Si las reservas deben aprobarse manualmente o entran directas");
+            entity.Property(e => e.BlockBlacklistedEmails).HasComment("Bloquea correos que han sido baneados previamente");
+            entity.Property(e => e.BookingSlotDurationMinutes).HasComment("Duración estándar del bloque (ej: 30 minutos, 60, etc.)");
+            entity.Property(e => e.BookingWindowDays).HasDefaultValue(7);
+            entity.Property(e => e.CancelationTimeLimitHours).HasComment("Cuántas horas antes se puede cancelar una reserva");
+            entity.Property(e => e.CustomTheme)
                 .HasMaxLength(255)
-                .HasColumnName("correo_electronico");
-            entity.Property(e => e.Createdate)
-                .HasDefaultValueSql("now()")
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("createdate");
-            entity.Property(e => e.Createdby)
-                .HasMaxLength(50)
-                .HasColumnName("createdby");
-            entity.Property(e => e.Direccion).HasColumnName("direccion");
-            entity.Property(e => e.DocumentoIdentificacion)
-                .HasMaxLength(50)
-                .HasColumnName("documento_identificacion");
-            entity.Property(e => e.FechaNacimiento).HasColumnName("fecha_nacimiento");
-            entity.Property(e => e.FechaUltClave)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("fecha_ult_clave");
-            entity.Property(e => e.FotoUrl)
+                .HasColumnName("CustomTheme ");
+            entity.Property(e => e.EnableReschedule).HasComment("Permitir reprogramar reservas sin cancelar");
+            entity.Property(e => e.EnableSmsnotifications)
+                .HasComment("Si se activan mensajes SMS (por plan Premium, por ejemplo)")
+                .HasColumnName("EnableSMSNotifications");
+            entity.Property(e => e.MaxDailyBookingsPerUser).HasComment("Limita cuántas reservas puede hacer un usuario por día");
+            entity.Property(e => e.MinHoursBeforeBooking).HasComment("Define cuántas horas antes debe reservar (ej: 2h de anticipación mínima)");
+            entity.Property(e => e.ShowAvailableSlotsOnly).HasComment("Solo muestra horarios disponibles (sin mostrar todos los bloques)");
+            entity.Property(e => e.TenantSettings).ValueGeneratedOnAdd();
+        });
+
+        modelBuilder.Entity<TenantUserBlockList>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("TenantUserBlockList_pkey");
+
+            entity.ToTable("TenantUserBlockList");
+
+            entity.Property(e => e.CreatedBy).HasMaxLength(255);
+            entity.Property(e => e.PublicUserId).ValueGeneratedOnAdd();
+            entity.Property(e => e.TenantId).ValueGeneratedOnAdd();
+            entity.Property(e => e.UpdateBy).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Users_pkey");
+
+            entity.HasIndex(e => e.Email, "Users_Email_key").IsUnique();
+
+            entity.HasIndex(e => e.UserName, "Users_UserName_key").IsUnique();
+
+            entity.Property(e => e.Country).HasMaxLength(255);
+            entity.Property(e => e.CreateBy).HasMaxLength(255);
+            entity.Property(e => e.Email).HasMaxLength(255);
+            entity.Property(e => e.Name).HasMaxLength(255);
+            entity.Property(e => e.Note).HasMaxLength(255);
+            entity.Property(e => e.Observation).HasMaxLength(255);
+            entity.Property(e => e.Password).HasMaxLength(255);
+            entity.Property(e => e.PhoneNumber).HasMaxLength(255);
+            entity.Property(e => e.PhotoUrl).HasMaxLength(255);
+            entity.Property(e => e.TenantId).ValueGeneratedOnAdd();
+            entity.Property(e => e.UpdateBy).HasMaxLength(255);
+            entity.Property(e => e.UserName).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<UserFavorite>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("UserFavorites_pkey");
+
+            entity.Property(e => e.AliasName).HasMaxLength(255);
+            entity.Property(e => e.PublicUserId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName(" PublicUserId");
+            entity.Property(e => e.Qualification).HasColumnName("qualification");
+            entity.Property(e => e.TenantId).ValueGeneratedOnAdd();
+        });
+
+        modelBuilder.Entity<UserLoginLog>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("UserLoginLogs_pkey");
+
+            entity.Property(e => e.IpAddress).HasMaxLength(255);
+            entity.Property(e => e.Location).HasMaxLength(255);
+            entity.Property(e => e.LoginMethod).HasMaxLength(255);
+            entity.Property(e => e.PublicUserId).ValueGeneratedOnAdd();
+            entity.Property(e => e.TenantId).ValueGeneratedOnAdd();
+            entity.Property(e => e.UserAgent).HasComment("Información del navegador o dispositivo");
+            entity.Property(e => e.UserId).ValueGeneratedOnAdd();
+        });
+
+        modelBuilder.Entity<UserRating>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("UserRatings_pkey");
+
+            entity.Property(e => e.PublicUserId).ValueGeneratedOnAdd();
+            entity.Property(e => e.RatingType)
                 .HasMaxLength(255)
-                .HasColumnName("foto_url");
-            entity.Property(e => e.FrecuenciaClave)
-                .HasDefaultValue((short)0)
-                .HasColumnName("frecuencia_clave");
-            entity.Property(e => e.MaxIntentosConex)
-                .HasDefaultValue((short)5)
-                .HasColumnName("max_intentos_conex");
-            entity.Property(e => e.Nombre)
-                .HasMaxLength(100)
-                .HasColumnName("nombre");
-            entity.Property(e => e.Noteexistsflag)
-                .HasDefaultValue(false)
-                .HasColumnName("noteexistsflag");
-            entity.Property(e => e.Recorddate)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("recorddate");
-            entity.Property(e => e.ReqCambioClave)
-                .HasDefaultValue(false)
-                .HasColumnName("req_cambio_clave");
-            entity.Property(e => e.Rowpointer)
-                .HasDefaultValueSql("gen_random_uuid()")
-                .HasColumnName("rowpointer");
-            entity.Property(e => e.Telefono1)
-                .HasMaxLength(15)
-                .HasColumnName("telefono_1");
-            entity.Property(e => e.Telefono2)
-                .HasMaxLength(15)
-                .HasColumnName("telefono_2");
-            entity.Property(e => e.Tipo)
-                .HasMaxLength(50)
-                .HasColumnName("tipo");
-            entity.Property(e => e.TipoAcceso)
-                .HasMaxLength(50)
-                .HasColumnName("tipo_acceso");
-            entity.Property(e => e.TipoPersonalizado)
-                .HasMaxLength(50)
-                .HasColumnName("tipo_personalizado");
-            entity.Property(e => e.Updatedate)
-                .HasDefaultValueSql("now()")
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("updatedate");
-            entity.Property(e => e.Updatedby)
-                .HasMaxLength(50)
-                .HasColumnName("updatedby");
+                .HasComment("Tipo de calificación: \"general\", \"servicio\", \"instalaciones\", \"tiempo\", etc. Sirve si quieres tener múltiples criterios.");
+            entity.Property(e => e.TenantId).ValueGeneratedOnAdd();
+        });
+
+        modelBuilder.Entity<UserRatingPhoto>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("UserRatingPhotos_pkey");
+
+            entity.Property(e => e.AltText).HasMaxLength(255);
+            entity.Property(e => e.CreatedAt).HasMaxLength(255);
+            entity.Property(e => e.ImageUrl).HasMaxLength(255);
+            entity.Property(e => e.UploadedBy).HasMaxLength(255);
+            entity.Property(e => e.UserRatingId).ValueGeneratedOnAdd();
+        });
+
+        modelBuilder.Entity<UsersRole>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Users_Role_pkey");
+
+            entity.ToTable("Users_Role");
+
+            entity.Property(e => e.CreateBy).HasMaxLength(255);
+            entity.Property(e => e.IdRol).ValueGeneratedOnAdd();
+            entity.Property(e => e.IdUsers).ValueGeneratedOnAdd();
         });
 
         OnModelCreatingPartial(modelBuilder);

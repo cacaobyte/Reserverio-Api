@@ -10,13 +10,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.7" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.1" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.7" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.7" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.2" />
@@ -24,11 +24,11 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\CC\CC.csproj" />
-		<ProjectReference Include="..\CommerceCore.BL\CommerceCore.BL.csproj" />
-		<ProjectReference Include="..\CommerceCore.DAL\CommerceCore.DAL.csproj" />
-		<ProjectReference Include="..\CommerceCore.EL\CommerceCore.EL.csproj" />
-		<ProjectReference Include="..\CommerceCore.ML\CommerceCore.ML.csproj" />
-		<ProjectReference Include="..\CommerceCore\CommerceCore.csproj" />
+		<ProjectReference Include="..\CommerceCore.BL\Reserverio.BL.csproj" />
+		<ProjectReference Include="..\CommerceCore.DAL\Reserverio.DAL.csproj" />
+		<ProjectReference Include="..\CommerceCore.EL\Reserverio.EL.csproj" />
+		<ProjectReference Include="..\CommerceCore.ML\ReserverioCore.ML.csproj" />
+		<ProjectReference Include="..\CommerceCore\ReserverioCore.csproj" />
 	</ItemGroup>
 
 </Project>

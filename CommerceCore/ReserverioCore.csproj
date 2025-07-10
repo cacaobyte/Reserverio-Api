@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CC\CC.csproj" />
-    <ProjectReference Include="..\CommerceCore.BL\CommerceCore.BL.csproj" />
+    <ProjectReference Include="..\CommerceCore.BL\Reserverio.BL.csproj" />
   </ItemGroup>
 
 </Project>

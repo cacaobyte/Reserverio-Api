@@ -1,13 +1,100 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Reserverio";
 }
 
-<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center;">
-    <!-- Imagen centrada -->
-    <img src="https://res.cloudinary.com/dniucj0iy/image/upload/v1737002746/EventsAdmin/Logo_CacaoByte_pfceq3.png"
-         alt="Logo CommerceCore"
-         style="width: 300px; height: auto; margin-bottom: 20px;">
+@Html.Raw(@"
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(to bottom right, #e0f7fa, #fce4ec);
+        color: #333;
+    }
 
-    <!-- Texto centrado -->
-    <h1 style="font-family: Arial, sans-serif; font-size: 3rem; font-weight: bold; color: #333;">CommerceCore API</h1>
+    .welcome-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        text-align: center;
+        padding: 40px 20px;
+    }
+
+    .card {
+        background: white;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        width: 100%;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    .card img {
+        width: 120px;
+        margin-bottom: 20px;
+        animation: bounce 2s infinite;
+    }
+
+    h1 {
+        font-size: 2.8rem;
+        margin-bottom: 16px;
+        color: #2c3e50;
+    }
+
+    p {
+        font-size: 1.15rem;
+        color: #555;
+        margin-bottom: 30px;
+    }
+
+    ul {
+        text-align: left;
+        padding-left: 20px;
+    }
+
+    ul li {
+        margin-bottom: 12px;
+        font-size: 1.05rem;
+        transition: transform 0.2s;
+    }
+
+    ul li:hover {
+        transform: translateX(4px);
+    }
+
+    @keyframes bounce {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-5px);
+        }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+</style>
+")
+<div class="welcome-container">
+    <div class="card">
+        <img src="https://res.cloudinary.com/dniucj0iy/image/upload/v1737002746/EventsAdmin/Logo_CacaoByte_pfceq3.png" alt="Logo Reserverio">
+
+        <h1>Bienvenido a Reserverio</h1>
+        <p>
+            La plataforma donde cualquier negocio, sin importar su tamaño o categoría, puede publicar sus servicios, horarios y promociones para que cualquier persona pueda hacer una reservación fácil, rápida y sin costo adicional.
+        </p>
+
+        <ul>
+            <li>📅 Reservas de citas para médicos, dentistas, mecánicos, restaurantes, clases, y más.</li>
+            <li>📍 Locales por categoría y ubicación, accesibles para todos los usuarios.</li>
+            <li>💰 Los negocios pagan desde <strong>$5/mes</strong> para mostrar sus servicios y gestionar reservas.</li>
+            <li>🔐 El usuario no paga suscripción y puede hacer múltiples reservas en distintos negocios.</li>
+            <li>🏢 Las marcas pueden gestionar múltiples sucursales (tenants) desde una sola cuenta.</li>
+            <li>🧾 Los negocios pueden habilitar adelantos opcionales del 25% o 50% si lo desean.</li>
+        </ul>
+    </div>
 </div>

@@ -1,33 +1,41 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CommerceCore.Api</title>
+    <title>@ViewData["Title"] - Reserverio</title>
+    <link rel="icon" href="https://res.cloudinary.com/dniucj0iy/image/upload/v1737002746/EventsAdmin/Logo_CacaoByte_pfceq3.png" />
+
+    <!-- Estilos principales -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CommerceCore.Api.styles.css" asp-append-version="true" />
+
+    <!-- Bootstrap Icons (opcional) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Header -->
     <header>
-        <!-- Navbar mejorado -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <!-- Logo / Título -->
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CommerceCore.Api</a>
-                <!-- Botón de colapso -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+            <div class="container">
+                <a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-calendar2-check-fill me-2"></i>Reserverio
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <!-- Opciones del menú -->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Privacy">Privacidad</a>
                         </li>
+                        <!-- Puedes agregar más opciones aquí -->
                     </ul>
                 </div>
             </div>
@@ -35,16 +43,16 @@
     </header>
 
     <!-- Contenido principal -->
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <!-- Footer mejorado -->
-    <footer class="border-top footer text-center text-white bg-dark py-3">
+    <main role="main" class="flex-fill py-4">
         <div class="container">
-            &copy; 2025 - CommerceCore.Api - <span>CacaoByte S.A.</span>
+            @RenderBody()
+        </div>
+    </main>
+
+    <!-- Footer sticky -->
+    <footer class="bg-dark text-white text-center py-3 mt-auto shadow-sm">
+        <div class="container">
+            &copy; 2025 - <strong>Reserverio</strong> - Desarrollado por <span class="text-warning">CacaoByte S.A.</span>
         </div>
     </footer>
 

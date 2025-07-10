@@ -8,13 +8,13 @@
 
   <ItemGroup>
     <PackageReference Include="4NuGet" Version="1.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.7">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.7">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -24,11 +24,12 @@
 
   <ItemGroup>
     <Folder Include="Commerce\Context\" />
+    <Folder Include="Commerce\Models\Reserverio\" />
     <Folder Include="Commerce\Models\Seguridad\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CommerceCore.ML\CommerceCore.ML.csproj" />
+    <ProjectReference Include="..\CommerceCore.ML\ReserverioCore.ML.csproj" />
   </ItemGroup>
 
 </Project>
