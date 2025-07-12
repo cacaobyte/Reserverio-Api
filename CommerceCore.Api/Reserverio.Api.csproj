@@ -31,4 +31,12 @@
 		<ProjectReference Include="..\CommerceCore\ReserverioCore.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Controllers\Login\Logs\" />
+	  <Folder Include="Controllers\Login\Register\" />
+	  <Folder Include="Controllers\Login\session\Publics\" />
+	  <Folder Include="Controllers\Login\session\Tenants\" />
+	  <Folder Include="Controllers\UsersPublics\" />
+	</ItemGroup>
+
 </Project>

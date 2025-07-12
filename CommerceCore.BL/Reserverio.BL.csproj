@@ -12,4 +12,12 @@
     <ProjectReference Include="..\CommerceCore.ML\ReserverioCore.ML.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Login\logs\" />
+    <Folder Include="Login\Register\" />
+    <Folder Include="UsersPublics\" />
+    <Folder Include="Login\Session\Tenants\" />
+    <Folder Include="Login\Session\Publics\" />
+  </ItemGroup>
+
 </Project>
