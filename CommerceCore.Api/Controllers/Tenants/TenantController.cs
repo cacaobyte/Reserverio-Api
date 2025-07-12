@@ -18,6 +18,7 @@ namespace Reserverio.Api.Controllers.Tenants
         [HttpGet("allOrganization")]
         public IActionResult OrganizationsAll()
         {
+            
             return blOrganizations.GetOrganizations();
         }
     }
