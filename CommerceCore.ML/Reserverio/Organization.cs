@@ -28,4 +28,5 @@ public partial class Organization
     public DateOnly? UpdatedAt { get; set; }
 
     public bool? IsActive { get; set; }
+    public int? Planid { get; set; }
 }
