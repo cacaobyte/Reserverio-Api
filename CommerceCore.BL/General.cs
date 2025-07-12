@@ -5,12 +5,12 @@ namespace CommerceCore.BL
 {
     public class General : LogicBase
     {
-        private SoftByte db { get; }
+        private Reserveriodb db { get; }
 
         public General( Configuration settings)
         {
             configuration = settings;
-            db = new SoftByte(configuration.appSettings.cadenaSql); // Configuración inyectada
+            db = new Reserveriodb(configuration.appSettings.cadenaSql); // Configuración inyectada
         }
 
         public static string GetMonthName(short monthNumber)

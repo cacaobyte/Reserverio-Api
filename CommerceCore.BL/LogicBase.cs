@@ -13,7 +13,7 @@ namespace CommerceCore.BL
         internal Configuration configuration { get; set; }
         internal General general { get; set; }
 
-        protected readonly SoftByte db;
+        protected readonly Reserveriodb db;
         //protected LogicBase(SoftByte dbContext)
         //{
         //    db = dbContext; // El contexto se comparte con todas las clases derivadas

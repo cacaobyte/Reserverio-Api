@@ -8,18 +8,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CommerceCore.DAL.Commerce
 {
-    public class SoftByte : AppDbContext
+    public class Reserveriodb : AppDbContext
     {
         private string connection { get; }
 
-        public SoftByte() { }
+        public Reserveriodb() { }
 
-        public SoftByte(DbContextOptions<AppDbContext> options)
+        public Reserveriodb(DbContextOptions<AppDbContext> options)
             : base(options)
         {
         }
 
-        public SoftByte(string connection)
+        public Reserveriodb(string connection)
         {
             this.connection = connection;
             Database.SetCommandTimeout(900000);

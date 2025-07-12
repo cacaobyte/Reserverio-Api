@@ -10,18 +10,18 @@ using NuGet.Configuration;
 
 namespace Reserverio.BL.Tenants
 {
-    public class Tenants : LogicBase
+    public class TenantsOrganizations : LogicBase
     {
-        public Tenants(Configuration settings)
+        public TenantsOrganizations(Configuration settings)
         {
             configuration = settings;
         }
 
-        public dynamic GetMenuPlan(int aplicacion, string plan)
+        public dynamic GetOrganizations()
         {
             try
             {
-                using (SoftByte db = new SoftByte(configuration.appSettings.cadenaSql))
+                using (Reserveriodb db = new Reserveriodb(configuration.appSettings.cadenaSql))
                 {
                     return db.Organizations.ToList();   
                 }

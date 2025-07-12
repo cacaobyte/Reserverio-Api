@@ -1,14 +1,24 @@
-﻿using CommerceCore.Api.Tools;
+﻿using CommerceCore.Api;
+using CommerceCore.Api.Tools;
 using Microsoft.AspNetCore.Mvc;
+using Reserverio.BL.Tenants;
 
 namespace Reserverio.Api.Controllers.Tenants
 {
+    [Route("organizaions")]
+    [ApiController]
     public class TenantController : CustomController
     {
-        [HttpGet]
+        private TenantsOrganizations blOrganizations = new TenantsOrganizations(Tool.configuration);
+
+        /// <summary>
+        /// Devuelve todas las organizaciones
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("allOrganization")]
         public IActionResult OrganizationsAll()
         {
-            return Ok("Prueba del controladores exitosa");
+            return blOrganizations.GetOrganizations();
         }
     }
 }

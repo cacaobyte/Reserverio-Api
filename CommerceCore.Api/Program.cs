@@ -8,7 +8,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 
 // Registrar el contexto de base de datos
-builder.Services.AddDbContext<CommerceCore.DAL.Commerce.Reserverios>(options =>
+builder.Services.AddDbContext<CommerceCore.DAL.Commerce.Reserveriodb>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("cadenaSQL"))
 );
 
