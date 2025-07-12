@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Reserverio.DAL.Commerce.Models.Reserverio;
 using ReserverioCore.ML.Reserverio;
 
 namespace Reserverio.DAL.Commerce.Models;
@@ -25,6 +26,9 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<Operation> Operations { get; set; }
 
     public virtual DbSet<Organization> Organizations { get; set; }
+    public virtual DbSet<Plan> Plans { get; set; }
+
+    public virtual DbSet<Plansetting> Plansettings { get; set; }
 
     public virtual DbSet<PublicUser> PublicUsers { get; set; }
 
@@ -86,7 +90,7 @@ public partial class AppDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Host=ep-noisy-sea-ae3p0izv-pooler.c-2.us-east-2.aws.neon.tech;Port=5432;Username=neondb_owner;Password=npg_EOwKcdLexF68;Database=neondb;SSL Mode=Require;Trust Server Certificate=true");
+        => optionsBuilder.UseNpgsql("Host=ep-noisy-sea-ae3p0izv-pooler.c-2.us-east-2.aws.neon.tech;Port=5432;Username=neondb_owner;Password=npg_Na92ZFyjCPlu;Database=neondb;SSL Mode=Require;Trust Server Certificate=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -149,8 +153,88 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.LogoUrl).HasMaxLength(255);
             entity.Property(e => e.Name).HasMaxLength(255);
             entity.Property(e => e.Phone).HasMaxLength(25);
+            entity.Property(e => e.Planid).HasColumnName("planid");
             entity.Property(e => e.Website).HasMaxLength(255);
         });
+
+
+        modelBuilder.Entity<Plan>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("plans_pkey");
+
+            entity.ToTable("plans");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Createdat)
+                .HasDefaultValueSql("CURRENT_DATE")
+                .HasColumnName("createdat");
+            entity.Property(e => e.Currency)
+                .HasMaxLength(10)
+                .HasDefaultValueSql("'USD'::character varying")
+                .HasColumnName("currency");
+            entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.Isactive)
+                .HasDefaultValue(true)
+                .HasColumnName("isactive");
+            entity.Property(e => e.Istrial)
+                .HasDefaultValue(false)
+                .HasColumnName("istrial");
+            entity.Property(e => e.Maxbookingspermonth).HasColumnName("maxbookingspermonth");
+            entity.Property(e => e.Maxmainuserspertenant).HasColumnName("maxmainuserspertenant");
+            entity.Property(e => e.Maxservices).HasColumnName("maxservices");
+            entity.Property(e => e.Maxstoragemb).HasColumnName("maxstoragemb");
+            entity.Property(e => e.Maxtenantsallowed).HasColumnName("maxtenantsallowed");
+            entity.Property(e => e.Maxuserspertenant).HasColumnName("maxuserspertenant");
+            entity.Property(e => e.Name)
+                .HasMaxLength(100)
+                .HasColumnName("name");
+            entity.Property(e => e.Price)
+                .HasPrecision(10, 2)
+                .HasColumnName("price");
+            entity.Property(e => e.Trialenddate).HasColumnName("trialenddate");
+            entity.Property(e => e.Trialstartdate).HasColumnName("trialstartdate");
+            entity.Property(e => e.Updatedat).HasColumnName("updatedat");
+        });
+
+
+        modelBuilder.Entity<Plansetting>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("plansettings_pkey");
+
+            entity.ToTable("plansettings");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Createdat)
+                .HasDefaultValueSql("CURRENT_DATE")
+                .HasColumnName("createdat");
+            entity.Property(e => e.Featurekey)
+                .HasMaxLength(100)
+                .HasColumnName("featurekey");
+            entity.Property(e => e.Featuretype)
+                .HasMaxLength(50)
+                .HasColumnName("featuretype");
+            entity.Property(e => e.Featurevalue)
+                .HasMaxLength(100)
+                .HasColumnName("featurevalue");
+            entity.Property(e => e.Iscustomizable)
+                .HasDefaultValue(false)
+                .HasColumnName("iscustomizable");
+            entity.Property(e => e.Isvisible)
+                .HasDefaultValue(true)
+                .HasColumnName("isvisible");
+            entity.Property(e => e.Limitperfeature).HasColumnName("limitperfeature");
+            entity.Property(e => e.Modulename)
+                .HasMaxLength(100)
+                .HasColumnName("modulename");
+            entity.Property(e => e.Notes).HasColumnName("notes");
+            entity.Property(e => e.Planid).HasColumnName("planid");
+            entity.Property(e => e.Updatedat).HasColumnName("updatedat");
+
+            entity.HasOne(d => d.Plan).WithMany(p => p.Plansettings)
+                .HasForeignKey(d => d.Planid)
+                .HasConstraintName("plansettings_planid_fkey");
+        });
+
 
         modelBuilder.Entity<PublicUser>(entity =>
         {

@@ -2,7 +2,7 @@
 
  //Conexion Reserverio
 
- dotnet ef dbcontext scaffold "Host=ep-noisy-sea-ae3p0izv-pooler.c-2.us-east-2.aws.neon.tech;Port=5432;Username=neondb_owner;Password=npg_EOwKcdLexF68;Database=neondb;SSL Mode=Require;Trust Server Certificate=true" Npgsql.EntityFrameworkCore.PostgreSQL --context AppDbContext --output-dir "Commerce\Models\Reserverio" --project "C:\Users\enriq\Desktop\Proyectos Cacaobyte\Proyectos\Reserverio\ReserverioApi\SoftByte-Commerce-Api\CommerceCore.DAL\Reserverio.DAL.csproj" --startup-project "C:\Users\enriq\Desktop\Proyectos Cacaobyte\Proyectos\Reserverio\ReserverioApi\SoftByte-Commerce-Api\CommerceCore.DAL\Reserverio.DAL.csproj" --schema public --force
+ dotnet ef dbcontext scaffold "Host=ep-noisy-sea-ae3p0izv-pooler.c-2.us-east-2.aws.neon.tech;Port=5432;Username=neondb_owner;Password=npg_Na92ZFyjCPlu;Database=neondb;SSL Mode=Require;Trust Server Certificate=true" Npgsql.EntityFrameworkCore.PostgreSQL --context AppDbContext --output-dir "Commerce\Models\Reserverio" --project "C:\Users\enriq\Desktop\Proyectos Cacaobyte\Proyectos\Reserverio\ReserverioApi\SoftByte-Commerce-Api\CommerceCore.DAL\Reserverio.DAL.csproj" --startup-project "C:\Users\enriq\Desktop\Proyectos Cacaobyte\Proyectos\Reserverio\ReserverioApi\SoftByte-Commerce-Api\CommerceCore.DAL\Reserverio.DAL.csproj" --schema public --force
 
 
 

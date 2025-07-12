@@ -19,7 +19,8 @@ namespace Reserverio.Api.Controllers.Tenants
         public IActionResult OrganizationsAll()
         {
             
-            return blOrganizations.GetOrganizations();
+            var result = blOrganizations.GetOrganizations();
+            return Ok(result);
         }
     }
 }
