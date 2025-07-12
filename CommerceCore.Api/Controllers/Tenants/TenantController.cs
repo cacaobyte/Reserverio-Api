@@ -2,6 +2,7 @@
 using CommerceCore.Api.Tools;
 using Microsoft.AspNetCore.Mvc;
 using Reserverio.BL.Tenants;
+using ReserverioCore.ML.Tenants.Public.Tenants;
 
 namespace Reserverio.Api.Controllers.Tenants
 {
@@ -22,5 +23,18 @@ namespace Reserverio.Api.Controllers.Tenants
             var result = blOrganizations.GetOrganizations();
             return Ok(result);
         }
+
+        /// <summary>
+        /// Devuelve la busqueda de las organizaciones
+        /// </summary>
+        /// 
+        /// <returns></returns>
+        [HttpPost("searchOrganization")]
+        public IActionResult SearchOrganization([FromBody] SearchPublicDto filters)
+        {
+            var result = blOrganizations.SearchOrganizations(filters);
+            return Ok(result);
+        }
+
     }
 }

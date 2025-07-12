@@ -8,6 +8,7 @@ using CommerceCore.BL;
 using CommerceCore.DAL.Commerce;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Configuration;
+using ReserverioCore.ML.Tenants.Public.Tenants;
 
 namespace Reserverio.BL.Tenants
 {
@@ -22,29 +23,45 @@ namespace Reserverio.BL.Tenants
         {
             try
             {
-                // Intentar abrir la conexión explícitamente para validar
                 using (Reserveriodb db = new Reserveriodb(configuration.appSettings.cadenaSql))
                 {
-                    // Esta línea valida si la conexión se puede abrir
-                    db.Database.OpenConnection();
-
-                    // Mensaje opcional de confirmación de conexión (puedes ponerlo en logs)
-                    Console.WriteLine("✅ Conexión exitosa a la base de datos Neon");
 
                     var organizations = db.Organizations.ToList();
-
-                    // Cierra la conexión manualmente (aunque el using también lo haría)
-                    db.Database.CloseConnection();
 
                     return organizations;
                 }
             }
             catch (Exception ex)
             {
-                // Incluye la cadena de conexión en modo desarrollo si lo necesitas
-                throw new Exception("❌ Error de conexión o consulta a Neon: " + ex.Message);
+                throw new Exception(ex.Message);
             }
         }
+
+        public dynamic SearchOrganizations(SearchPublicDto search)
+        {
+            try
+            {
+                using (Reserveriodb db = new Reserveriodb(configuration.appSettings.cadenaSql))
+                {
+                    var query = db.Organizations.AsQueryable();
+
+                    if (!string.IsNullOrWhiteSpace(search.Nombre))
+                        query = query.Where(o => o.Name.ToLower().Contains(search.Nombre.ToLower()));
+
+                    if (!string.IsNullOrWhiteSpace(search.Descripcion))
+                        query = query.Where(o => o.Description.ToLower().Contains(search.Descripcion.ToLower()));
+
+                
+
+                    return query.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
 
     }
 }
