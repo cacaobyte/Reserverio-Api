@@ -36,5 +36,17 @@ namespace Reserverio.Api.Controllers.Tenants
             return Ok(result);
         }
 
+        /// <summary>
+        /// Devuelve la busqueda de las organizaciones
+        /// </summary>
+        /// 
+        /// <returns></returns>
+        [HttpPost("searchTenants")]
+        public IActionResult SearchTenants([FromBody] SearchPublicDto filters)
+        {
+            var result = blOrganizations.SearchOrganizations(filters);
+            return Ok(result);
+        }
+
     }
 }

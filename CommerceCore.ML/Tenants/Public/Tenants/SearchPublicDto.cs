@@ -13,5 +13,6 @@ namespace ReserverioCore.ML.Tenants.Public.Tenants
         public string? Nombre { get; set; }
         public string? Descripcion { get; set; }
         public string? Categoria { get; set; }
+        public string? Type { get; set; }
     }
 }

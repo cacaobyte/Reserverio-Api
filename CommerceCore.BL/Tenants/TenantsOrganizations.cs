@@ -37,6 +37,7 @@ namespace Reserverio.BL.Tenants
             }
         }
 
+        //Cambiar con agregar un type identificador para diferentes tipos de busquedas
         public dynamic SearchOrganizations(SearchPublicDto search)
         {
             try
@@ -61,6 +62,40 @@ namespace Reserverio.BL.Tenants
                 throw new Exception(ex.Message);
             }
         }
+
+
+        /// <summary>
+        /// Devuelve la busqueda de los tenants para pantalle de usuarios publicos
+        /// </summary>
+        /// 
+        /// <returns></returns>
+        public List<TenantsLists> SearchTenants(SearchPublicDto search)
+        {
+            try
+            {
+                using (Reserveriodb db = new Reserveriodb(configuration.appSettings.cadenaSql))
+                {
+                   var result  = new List<TenantsLists>();
+
+                    result = db.Organizations.Join(db.Tenants, o => o.Id, t => t.ParentTenantId, ( o, t ) => new { o, t })
+                        .Select(x => new TenantsLists
+                        {
+                            nameTenant = x.t.Name,
+                            nameLegal = x.o.LegalName,
+                        }).ToList();
+                        
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
+
 
 
     }
