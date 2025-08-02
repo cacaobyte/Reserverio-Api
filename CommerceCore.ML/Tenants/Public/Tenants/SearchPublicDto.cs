@@ -11,8 +11,8 @@ namespace ReserverioCore.ML.Tenants.Public.Tenants
         public decimal Latitud { get; set; }
         public decimal Longitud { get; set; }
         public string? Nombre { get; set; }
-        public string? Descripcion { get; set; }
         public string? Categoria { get; set; }
+        public double Km { get; set; }
         public string? Type { get; set; }
     }
 }
