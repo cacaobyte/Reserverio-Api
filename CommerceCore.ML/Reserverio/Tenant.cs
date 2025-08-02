@@ -23,7 +23,7 @@ public partial class Tenant
 
     public DateOnly? ExpirationDate { get; set; }
 
-    public int? LogoUrl { get; set; }
+    public string? LogoUrl { get; set; }
 
     public string? Industry { get; set; }
 

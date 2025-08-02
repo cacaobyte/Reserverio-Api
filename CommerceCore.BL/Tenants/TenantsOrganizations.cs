@@ -94,7 +94,7 @@ namespace Reserverio.BL.Tenants
         /// </summary>
         /// 
         /// <returns></returns>
-        public List<TenantsLists> SearchLocationTenants(double Latitud, double Longitud)
+        public List<TenantsLists> SearchLocationTenants(decimal Latitud, decimal Longitud)
         {
             try
             {
@@ -107,6 +107,20 @@ namespace Reserverio.BL.Tenants
                         {
                             nameTenant = x.t.Name,
                             nameLegal = x.o.LegalName,
+                            website = x.o.Website,
+                            correo = x.t.ContactEmail,
+                            phone = x.t.ContactPhone,
+                            description = x.o.Description,
+                            logourl = x.t.LogoUrl,
+                            industry = x.t.Industry,
+                            latitud = x.t.Latitude,
+                            longitude = x.t.Longitude,
+                            addressline = x.t.AddressLine,
+                            country = x.t.Country,
+                            stateOrRegion = x.t.StateOrRegion,
+                            city = x.t.City,
+                            idTenant = x.t.Id,
+                            idOrganization = x.o.Id,
                         }).ToList();
                         
 
