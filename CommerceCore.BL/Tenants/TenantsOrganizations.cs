@@ -49,7 +49,7 @@ namespace Reserverio.BL.Tenants
                 using (Reserveriodb db = new Reserveriodb(configuration.appSettings.cadenaSql))
                 {
 
-                    if (search != null)
+                    if (search == null)
                     {
                         throw new Exception("Los parametros de busquedas no son validos");
                     }
