@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CommerceCore.ML\CommerceCore.ML.csproj" />
+    <ProjectReference Include="..\CommerceCore.ML\ReserverioCore.ML.csproj" />
   </ItemGroup>
 
 </Project>
